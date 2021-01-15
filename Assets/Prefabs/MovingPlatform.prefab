@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5891887660418160463}
   - component: {fileID: 9210895911100717572}
+  - component: {fileID: 8589843579175517901}
   m_Layer: 0
   m_Name: MovingPlatform
   m_TagString: Untagged
@@ -81,3 +82,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8589843579175517901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478460048227752224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0d678a469612d41a43a3422c96cf23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upDistance: 3
+  upMoveSpeed: 0.007
+  returnWhenInitial: 1
+  vertical: 1
+  rightDistance: 10
+  rightMoveSpeed: 0.17
+  horizontal: 0
