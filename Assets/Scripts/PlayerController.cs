@@ -4,15 +4,93 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float jumpForce = 400f;
+    [Range(0, 1)] [SerializeField] private float crouchSpeed = .36f;
+    [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
+    [SerializeField] private bool airControl = false;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform ceilingCheck;
+    [SerializeField] private Collider2D crouchDisableCollider;
+
+    const float groundedRadius = .2f;
+    private bool grounded;
+    const float ceilingRadius = .2f;
+    private Rigidbody2D m_Rigidbody2D;
+    private bool facingRight = true;
+    private Vector3 velocity = Vector3.zero;
+
+    private void Awake()
     {
-        
+        m_Rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        grounded = false;
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, whatIsGround);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            if (colliders[i].gameObject != gameObject)
+                grounded = true;
+        }
     }
+
+    public void Move(float move, bool crouch, bool jump)
+    {
+        if (!crouch)
+        {
+            if (Physics2D.OverlapCircle(ceilingCheck.position, ceilingRadius, whatIsGround))
+            {
+                crouch = true;
+            }
+        }
+      if (grounded || airControl)
+        {
+            if(crouch)
+            {
+                move *= crouchSpeed;
+
+                if (crouchDisableCollider != null)
+                    crouchDisableCollider.enabled = false;
+            }
+            else
+            {
+                if (crouchDisableCollider != null)
+                    crouchDisableCollider.enabled = true;
+            }
+       
+        Vector3 targetVelocity = new Vector2(move * 19f, m_Rigidbody2D.velocity.y);
+
+            m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, movementSmoothing);
+
+        if (move > 0 && !facingRight)
+        {
+            Flip();
+        }
+        else if (move < 0 && facingRight)      
+        {
+            Flip();
+        }
+       }
+      if (grounded && jump)
+        {
+            grounded = false;
+            m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+        }
+    }
+
+    private void Flip()
+    {
+        facingRight = !facingRight;
+
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+
+    }
+
+    
+
 }

@@ -201,7 +201,7 @@ PrefabInstance:
     - target: {fileID: 4768939581934307678, guid: 0e291ac9a6dcc8548819b1288c704f86,
         type: 3}
       propertyPath: m_Name
-      value: Gem1 (2)
+      value: Gem3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e291ac9a6dcc8548819b1288c704f86, type: 3}
@@ -247,9 +247,11 @@ GameObject:
   - component: {fileID: 208657564}
   - component: {fileID: 208657566}
   - component: {fileID: 208657568}
+  - component: {fileID: 208657571}
+  - component: {fileID: 208657570}
   - component: {fileID: 208657567}
   - component: {fileID: 208657569}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +318,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.98, y: -3.724, z: 0}
   m_LocalScale: {x: 3.3208826, y: 3.3208826, z: 3.3208826}
-  m_Children: []
+  m_Children:
+  - {fileID: 621261368}
+  - {fileID: 1649042556}
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -348,7 +352,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 208657563}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 19f28525ea56f0e42b3bff021bc52185, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -364,7 +368,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 208657563}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 19f28525ea56f0e42b3bff021bc52185, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -396,12 +400,48 @@ Rigidbody2D:
   m_Mass: 0.39172447
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &208657570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208657563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8268ce917a2385445aa51e6c016fd333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 220
+  crouchSpeed: 0.36
+  movementSmoothing: 0.05
+  airControl: 1
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 55
+  groundCheck: {fileID: 1649042556}
+  ceilingCheck: {fileID: 621261368}
+  crouchDisableCollider: {fileID: 208657568}
+--- !u!114 &208657571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208657563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bb285ef6d48d1241969af8a5dd260bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 208657570}
+  runSpeed: 10
 --- !u!1 &245008585
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,7 +747,7 @@ PrefabInstance:
     - target: {fileID: 4768939581934307678, guid: 0e291ac9a6dcc8548819b1288c704f86,
         type: 3}
       propertyPath: m_Name
-      value: Gem1 (1)
+      value: Gem2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e291ac9a6dcc8548819b1288c704f86, type: 3}
@@ -1103,6 +1143,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &621261367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 621261368}
+  m_Layer: 0
+  m_Name: CeilingCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &621261368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621261367}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.001, y: 0.0349, z: -5.237156}
+  m_LocalScale: {x: 0.30112478, y: 0.30112478, z: 0.30112478}
+  m_Children: []
+  m_Father: {fileID: 208657565}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &704566744
 GameObject:
@@ -1801,7 +1871,7 @@ PrefabInstance:
     - target: {fileID: 4768939581934307678, guid: 0e291ac9a6dcc8548819b1288c704f86,
         type: 3}
       propertyPath: m_Name
-      value: Gem1 (3)
+      value: Gem4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e291ac9a6dcc8548819b1288c704f86, type: 3}
@@ -1885,7 +1955,7 @@ PrefabInstance:
     - target: {fileID: 4768939581934307678, guid: 0e291ac9a6dcc8548819b1288c704f86,
         type: 3}
       propertyPath: m_Name
-      value: Gem1 (5)
+      value: Gem6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e291ac9a6dcc8548819b1288c704f86, type: 3}
@@ -2832,6 +2902,36 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.16}
   m_EdgeRadius: 0
+--- !u!1 &1649042555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1649042556}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1649042556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649042555}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.001, y: -0.159, z: -5.237156}
+  m_LocalScale: {x: 0.30112478, y: 0.30112478, z: 0.30112478}
+  m_Children: []
+  m_Father: {fileID: 208657565}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1651596807
 GameObject:
   m_ObjectHideFlags: 0
@@ -3554,7 +3654,7 @@ PrefabInstance:
     - target: {fileID: 4768939581934307678, guid: 0e291ac9a6dcc8548819b1288c704f86,
         type: 3}
       propertyPath: m_Name
-      value: Gem1 (4)
+      value: Gem5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e291ac9a6dcc8548819b1288c704f86, type: 3}
