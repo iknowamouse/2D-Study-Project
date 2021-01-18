@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,13 +19,32 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = true;
     private Vector3 velocity = Vector3.zero;
 
+    [Header("Events")]
+    [Space]
+
+    public UnityEvent OnLandEvent;
+
+    [System.Serializable]
+    public class BoolEvent : UnityEvent<bool> { }
+
+    public BoolEvent OnCrouchEvent;
+    private bool m_wasCrouching = false;
+
+
     private void Awake()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
+
+        if (OnLandEvent == null)
+            OnLandEvent = new UnityEvent();
+
+        if (OnCrouchEvent == null)
+            OnCrouchEvent = new BoolEvent();
     }
 
     private void FixedUpdate()
     {
+        bool wasGrounded = grounded;
         grounded = false;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, whatIsGround);
@@ -34,6 +52,8 @@ public class PlayerController : MonoBehaviour
         {
             if (colliders[i].gameObject != gameObject)
                 grounded = true;
+            if (!wasGrounded)
+                OnLandEvent.Invoke();
         }
     }
 
@@ -50,6 +70,12 @@ public class PlayerController : MonoBehaviour
         {
             if(crouch)
             {
+                if (!m_wasCrouching)
+                {
+                    m_wasCrouching = true;
+                    OnCrouchEvent.Invoke(true);
+                }
+
                 move *= crouchSpeed;
 
                 if (crouchDisableCollider != null)
@@ -59,6 +85,12 @@ public class PlayerController : MonoBehaviour
             {
                 if (crouchDisableCollider != null)
                     crouchDisableCollider.enabled = true;
+
+                if (m_wasCrouching)
+                {
+                    m_wasCrouching = false;
+                    OnCrouchEvent.Invoke(false);
+                }
             }
        
         Vector3 targetVelocity = new Vector2(move * 19f, m_Rigidbody2D.velocity.y);
