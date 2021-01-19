@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float jumpForce = 400f;
+    [SerializeField] private float jumpForce = 220f;
     [Range(0, 1)] [SerializeField] private float crouchSpeed = .36f;
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
     [SerializeField] private bool airControl = false;
@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform ceilingCheck;
     [SerializeField] private Collider2D crouchDisableCollider;
+    //[SerializeField] public Collider2D collisionDisableCollider;
 
     const float groundedRadius = .2f;
     private bool grounded;
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     public BoolEvent OnCrouchEvent;
     private bool m_wasCrouching = false;
+    
 
 
     private void Awake()
