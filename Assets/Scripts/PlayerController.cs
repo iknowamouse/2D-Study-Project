@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform ceilingCheck;
     [SerializeField] private Collider2D crouchDisableCollider;
     //[SerializeField] public Collider2D collisionDisableCollider;
+    public Transform life;
 
     const float groundedRadius = .2f;
     private bool grounded;
@@ -19,6 +21,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D m_Rigidbody2D;
     private bool facingRight = true;
     private Vector3 velocity = Vector3.zero;
+
+    public float playerLife;
+    private bool dead = false;
+    private bool hurt;
 
     [Header("Events")]
     [Space]
@@ -30,8 +36,23 @@ public class PlayerController : MonoBehaviour
 
     public BoolEvent OnCrouchEvent;
     private bool m_wasCrouching = false;
-    
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Fall")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            
+            if (collision.gameObject.tag == "Fall")
+            {
+                playerLife--;
+
+                Debug.Log(playerLife);
+               
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -56,6 +77,17 @@ public class PlayerController : MonoBehaviour
                 grounded = true;
             if (!wasGrounded)
                 OnLandEvent.Invoke();
+        }
+
+        if (!hurt)
+        {
+            playerLife = 6;
+        }
+
+        if (playerLife <= 0)
+        {
+            dead = true;
+            SceneManager.LoadScene(1);
         }
     }
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Gems
   - Point
+  - Fall
   layers:
   - Default
   - TransparentFX
