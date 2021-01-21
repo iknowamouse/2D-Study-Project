@@ -579,7 +579,6 @@ MonoBehaviour:
   groundCheck: {fileID: 1649042556}
   ceilingCheck: {fileID: 621261368}
   crouchDisableCollider: {fileID: 373890841}
-  life: {fileID: 141466488}
   playerLife: 6
   OnLandEvent:
     m_PersistentCalls:
@@ -1288,6 +1287,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MovingSmallPlatform2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122862472923376422, guid: dad854052319db847936372bb3a5726f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Platform
       objectReference: {fileID: 0}
     - target: {fileID: 2122862472923376424, guid: dad854052319db847936372bb3a5726f,
         type: 3}
@@ -2228,7 +2232,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 8e160a2a620644cd6afef9119dad1093, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2562,6 +2566,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LongMovingPlatformUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478460048227752224, guid: 375b700e7e56072439888ca556927abd,
+        type: 3}
+      propertyPath: m_TagString
+      value: Platform
       objectReference: {fileID: 0}
     - target: {fileID: 5891887660418160463, guid: 375b700e7e56072439888ca556927abd,
         type: 3}
@@ -4569,6 +4578,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovingSmallPlatform1
       objectReference: {fileID: 0}
+    - target: {fileID: 2122862472923376422, guid: dad854052319db847936372bb3a5726f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Platform
+      objectReference: {fileID: 0}
     - target: {fileID: 2122862472923376424, guid: dad854052319db847936372bb3a5726f,
         type: 3}
       propertyPath: m_RootOrder
@@ -4726,6 +4740,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LongMovingPlatformRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478460048227752224, guid: 375b700e7e56072439888ca556927abd,
+        type: 3}
+      propertyPath: m_TagString
+      value: Platform
       objectReference: {fileID: 0}
     - target: {fileID: 5891887660418160463, guid: 375b700e7e56072439888ca556927abd,
         type: 3}
