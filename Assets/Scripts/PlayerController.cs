@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform ceilingCheck;
     [SerializeField] private Collider2D crouchDisableCollider;
     //[SerializeField] public Collider2D collisionDisableCollider;
-    public Transform life;
+    // public Transform life;
+
+    
 
     const float groundedRadius = .2f;
     private bool grounded;
@@ -41,16 +43,13 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Fall")
-        {
+        {   playerLife--;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             
-            if (collision.gameObject.tag == "Fall")
-            {
-                playerLife--;
-
-                Debug.Log(playerLife);
+            
+            Debug.Log(playerLife);
                
-            }
+            
         }
     }
 
@@ -79,6 +78,10 @@ public class PlayerController : MonoBehaviour
                 OnLandEvent.Invoke();
         }
 
+    }
+
+    private void Update()
+    {
         if (!hurt)
         {
             playerLife = 6;
@@ -104,8 +107,11 @@ public class PlayerController : MonoBehaviour
         {
             if(crouch)
             {
+                jump = false;
+
                 if (!m_wasCrouching)
                 {
+                    
                     m_wasCrouching = true;
                     OnCrouchEvent.Invoke(true);
                 }
@@ -145,6 +151,8 @@ public class PlayerController : MonoBehaviour
             grounded = false;
             m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
         }
+       
+        
     }
 
     private void Flip()
