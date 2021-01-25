@@ -8,6 +8,7 @@ TagManager:
   - Point
   - Fall
   - Platform
+  - Door
   layers:
   - Default
   - TransparentFX

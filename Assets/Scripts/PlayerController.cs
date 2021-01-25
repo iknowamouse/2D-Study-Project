@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         {  
             playerLife--;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            
+            //SceneLoader.instance.Reload();
             Debug.Log(playerLife);
         }
      
