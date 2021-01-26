@@ -9,6 +9,8 @@ TagManager:
   - Fall
   - Platform
   - Door
+  - PowerUp
+  - Enemy
   layers:
   - Default
   - TransparentFX
