@@ -4413,6 +4413,7 @@ GameObject:
   - component: {fileID: 1918518698}
   - component: {fileID: 1918518702}
   - component: {fileID: 1918518701}
+  - component: {fileID: 1918518703}
   m_Layer: 0
   m_Name: Frog1_Enemy
   m_TagString: Untagged
@@ -4515,11 +4516,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802d876e0f2a1344294bef33d9348867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorFrog: {fileID: 1918518698}
-  rightDistance: 3
-  rightMoveSpeed: 0.01
-  returnWhenInitial: 1
+  maxLeft: 4.95
+  maxRight: 8.26
+  jumpLenght: 2
+  jumpHeight: 2
+  ground:
+    serializedVersion: 2
+    m_Bits: 23
   isFrogMove: 1
+  animatorFrog: {fileID: 1918518698}
 --- !u!61 &1918518702
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4530,7 +4535,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0039589778, y: -0.015836038}
@@ -4546,6 +4551,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2708202, y: 0.20123015}
   m_EdgeRadius: 0
+--- !u!50 &1918518703
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918518697}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0.62
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1940764648
 GameObject:
   m_ObjectHideFlags: 0
@@ -5204,6 +5230,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: heart pixel art 254x254
+      objectReference: {fileID: 0}
+    - target: {fileID: 6049969386129557409, guid: aebcc5b260b8a3942b46542d71e606f2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6240069214471976942, guid: aebcc5b260b8a3942b46542d71e606f2,
         type: 3}

@@ -5,60 +5,86 @@ using UnityEngine;
 public class FrogMovement : MonoBehaviour
 {
 
-   
-    public Animator animatorFrog;
-    public float rightDistance = 10;
-    public float rightMoveSpeed = 0.17f;
-    public bool returnWhenInitial;
+    [SerializeField] private float maxLeft = 4.43f;
+    [SerializeField] private float maxRight = 8.26f;
+    [SerializeField] private float jumpLenght = 10f;
+    [SerializeField] private float jumpHeight = 10f;
+    [SerializeField] private LayerMask ground;
 
-    private Vector3 InitialPosition;
-    private float currerntMagnitude;
-    public bool isFrogMove = false;
-    //private bool isFacingRight;
-    
+    public bool isFrogMove;
+    private bool isFacingLeft;
+
+    //private Vector3 InitialPosition;
+    private Collider2D frogCollider;
+    private Rigidbody2D rBFrog;
+    public Animator animatorFrog;
+
    
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
-        InitialPosition = transform.position;
+        frogCollider = GetComponent<Collider2D>();
+        rBFrog = GetComponent<Rigidbody2D>();
+        //InitialPosition = transform.position;
         isFrogMove = false;
     }
 
 
     private void Update()
-    {
-      
-            if(isFrogMove == true)
+    { 
+        if (isFrogMove)
         {
-                
-                transform.localPosition += (transform.right) * rightMoveSpeed;
-                currerntMagnitude = (transform.localPosition - InitialPosition).magnitude;
-           
-                if (currerntMagnitude > rightDistance)
+            animatorFrog.SetBool("JumpUp", true);
+            
+            if (isFacingLeft)
+            {
+                if ( transform.position.x > maxLeft)
                 {
-                
-                    rightMoveSpeed *= (-1);
-                
-            }
-
-                if (returnWhenInitial)
-                {
-                    if (transform.localPosition.x < InitialPosition.x)
+                    if (transform.localScale.x != 2.337425f)
                     {
-                        rightMoveSpeed *= (-1);
+                        transform.localScale = new Vector3(2.337425f, 2.337425f, 2.337425f);
+                    }
+
+                    if (frogCollider.IsTouchingLayers(ground))
+                    {
+                        rBFrog.velocity = new Vector2(-jumpLenght, jumpHeight);
+                    }
+                    else
+                    {
+                        animatorFrog.SetBool("JumpUp", false);
                     }
                 }
-                    
 
+                else
+                {
+                    isFacingLeft = false;
+                }
+            }
+
+            else
+            {
+                if (transform.position.x < maxRight)
+                {
+                    if (transform.localScale.x != -2.337425f)
+                    {
+                        transform.localScale = new Vector3(-2.337425f, 2.337425f, 2.337425f);
+                    }
+
+                    if (frogCollider.IsTouchingLayers(ground))
+                    {
+                        rBFrog.velocity = new Vector2(jumpLenght, jumpHeight);
+                    }
+                    else
+                    {
+                        animatorFrog.SetBool("JumpUp", false);
+                    }
+                }
+
+                else
+                {
+                    isFacingLeft = true;
+                }
+            }
         }
-            
-        
     }
-            // transform.rotation = Quaternion.Euler(0, 180, 0);
-          
-    
-   
-
 }
 
