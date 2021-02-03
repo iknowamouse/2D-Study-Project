@@ -13,7 +13,7 @@ public class Point : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
 
-            Debug.Log(other);
+            //Debug.Log(other);
             ScoreManager.instance.ChangeScore(coinValue);
             Destroy(gameObject);
         }

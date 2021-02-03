@@ -11,6 +11,8 @@ TagManager:
   - Door
   - PowerUp
   - Enemy
+  - EnemyKillByColl
+  - GetHurt
   layers:
   - Default
   - TransparentFX

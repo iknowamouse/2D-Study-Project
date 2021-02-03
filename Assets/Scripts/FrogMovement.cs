@@ -11,10 +11,9 @@ public class FrogMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 10f;
     [SerializeField] private LayerMask ground;
 
-    public bool isFrogMove;
+    //public bool isFrogMove;
     private bool isFacingLeft;
 
-    //private Vector3 InitialPosition;
     private Collider2D frogCollider;
     private Rigidbody2D rBFrog;
     public Animator animatorFrog;
@@ -24,20 +23,15 @@ public class FrogMovement : MonoBehaviour
     {
         frogCollider = GetComponent<Collider2D>();
         rBFrog = GetComponent<Rigidbody2D>();
-        //InitialPosition = transform.position;
-        isFrogMove = false;
+        animatorFrog.SetBool("IfStarCollected", false);
     }
-
-
-    private void Update()
-    { 
-        if (isFrogMove)
-        {
-            animatorFrog.SetBool("JumpUp", true);
-            
+    
+    //called from frog idle animation event
+    private void Move()
+    {    
             if (isFacingLeft)
             {
-                if ( transform.position.x > maxLeft)
+                if (transform.position.x > maxLeft)
                 {
                     if (transform.localScale.x != 2.337425f)
                     {
@@ -47,10 +41,7 @@ public class FrogMovement : MonoBehaviour
                     if (frogCollider.IsTouchingLayers(ground))
                     {
                         rBFrog.velocity = new Vector2(-jumpLenght, jumpHeight);
-                    }
-                    else
-                    {
-                        animatorFrog.SetBool("JumpUp", false);
+                        animatorFrog.SetBool("JumpUp", true);
                     }
                 }
 
@@ -72,10 +63,7 @@ public class FrogMovement : MonoBehaviour
                     if (frogCollider.IsTouchingLayers(ground))
                     {
                         rBFrog.velocity = new Vector2(jumpLenght, jumpHeight);
-                    }
-                    else
-                    {
-                        animatorFrog.SetBool("JumpUp", false);
+                        animatorFrog.SetBool("JumpUp", true);
                     }
                 }
 
@@ -84,7 +72,30 @@ public class FrogMovement : MonoBehaviour
                     isFacingLeft = true;
                 }
             }
+       
+    }
+
+    private void Update()
+    {
+        if (animatorFrog.GetBool("JumpUp"))
+        {
+            if (rBFrog.velocity.y < 0.1f)
+            {
+                animatorFrog.SetBool("JumpDown", true);
+                animatorFrog.SetBool("JumpUp", false);
+            }
         }
+        if (frogCollider.IsTouchingLayers(ground) && animatorFrog.GetBool("JumpDown"))
+        {
+            animatorFrog.SetBool("JumpDown", false);
+        }
+    }
+
+    // called by Frog Dead Animation
+    private void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
 
+  
